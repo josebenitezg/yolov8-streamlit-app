@@ -1,5 +1,8 @@
-# Yolov8-Streamlit-App
+
 <div align="center">
+
+# Yolov8-Streamlit-App
+
   <p>
     <a align="center" href="https://ultralytics.com/yolov8" target="_blank">
       <img width="50%" src="media/image.png"></a>
