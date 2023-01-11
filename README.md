@@ -23,7 +23,7 @@ Run [YOLOv8](https://github.com/ultralytics/ultralytics/) detection with [Stream
 
 ## Shared on Streamlit Cloud
 
-<https://share.streamlit.io/xugaoxiang/yolov5-streamlit/main/main.py>
+<https://josebenitezg-yolov8-streamlit-app-main-oadfn5.streamlit.app/>
 
 ## Requeriments
 
