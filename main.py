@@ -62,7 +62,7 @@ if __name__ == '__main__':
         if st.button('Detect'):
             with rd.stdout:
                 st.info(f"Running YOLOV8")
-                result = subprocess.run(['yolo', 'task=detect', 'mode=predict', 'model=yolov8n.pt', 'conf=0.25', 'source={}'.format(source)], capture_output=True, text=True, shell=True)
+                result = subprocess.run(['yolo', 'task=detect', 'mode=predict', 'model=yolov8n.pt', 'conf=0.25', 'source={}'.format(source)], capture_output=True, text=True)
                 try:
                     result.check_returncode()
                     st.info(result.stdout)
