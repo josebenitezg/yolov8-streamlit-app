@@ -1,5 +1,5 @@
 cli.log
 yolov8n.pt
 __pycache__
-utils.py
-redirect.py
+runs
+data

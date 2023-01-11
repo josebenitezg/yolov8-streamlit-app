@@ -1,29 +1,16 @@
-from pathlib import Path
-import streamlit as st
-import time
-import os
-from PIL import Image
-import subprocess
+# code based on: https://github.com/xugaoxiang/yolov5-streamlit
+# Adapted to use with Yolov8
+from utils import get_detection_folder, check_folders
 import redirect as rd
 
-def get_subdirs(b='.'):
-    '''
-        Returns all sub-directories in a specific Path
-    '''
-    result = []
-    for d in os.listdir(b):
-        bd = os.path.join(b, d)
-        if os.path.isdir(bd):
-            result.append(bd)
-    return result
+from pathlib import Path
+import streamlit as st
+from PIL import Image
+import subprocess
+import os
 
-
-def get_detection_folder():
-    '''
-        Returns the latest folder in a runs\detect
-    '''
-    return max(get_subdirs(os.path.join('runs', 'detect')), key=os.path.getmtime)
-
+# This will check if we have all the folders to save our files for inference
+check_folders()
 
 if __name__ == '__main__':
     
@@ -32,7 +19,9 @@ if __name__ == '__main__':
     source = ("Image", "Video")
     source_index = st.sidebar.selectbox("Select Input type", range(
         len(source)), format_func=lambda x: source[x])
-
+    
+    
+    
     if source_index == 0:
         uploaded_file = st.sidebar.file_uploader(
             "Load File", type=['png', 'jpeg', 'jpg'])
@@ -60,16 +49,10 @@ if __name__ == '__main__':
     if is_valid:
         print('valid')
         if st.button('Detect'):
-            with rd.stdout:
-                st.info(f"Running YOLOV8")
-                result = subprocess.run(['yolo', 'task=detect', 'mode=predict', 'model=yolov8n.pt', 'conf=0.25', 'source={}'.format(source)], capture_output=True, text=True)
-                try:
-                    result.check_returncode()
-                    st.info(result.stdout)
-                except subprocess.CalledProcessError as e:
-                    st.error(result.stderr)
-                    raise e
-                
+            with rd.stderr(format='markdown', to=st.sidebar), st.spinner('Wait for it...'):
+                print(subprocess.run(['yolo', 'task=detect', 'mode=predict', 'model=yolov8n.pt', 'conf=0.25', 'source={}'.format(source)],capture_output=True, universal_newlines=True).stderr)
+
+                    
             if source_index == 0:
                 with st.spinner(text='Preparing Images'):
                     for img in os.listdir(get_detection_folder()):
