@@ -1,4 +1,3 @@
-# Code source: https://gist.github.com/schaumb/037f139035d93cff3ad9f4f7e5f739ce
 # This script help us to output stderr and stdout in streamlit
 import streamlit as st
 import io
